@@ -20,12 +20,39 @@ import { NotImplementedError } from '../extensions/index.js';
  * 
  */
 export default class VigenereCipheringMachine {
-  encrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
-  decrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
+	constructor (mode = true) {
+		this.mode = mode;
+	}
+
+	encrypt (message, key, result = '', x = 0) {
+		if (!message || !key) throw new Error('Incorrect arguments!');
+		message = message.toUpperCase();
+		key = key.toUpperCase();
+
+		for (let i = 0; i < message.length; i++) {
+			if (message.charCodeAt(i) >= 65 && message.charCodeAt(i) <= 90) {
+				result += String.fromCharCode((message.charCodeAt(i) + key.charCodeAt(x % key.length) - 130) % 26 + 65);
+				x++;
+			} else {
+				result += message[i];
+			}
+		}
+		return this.mode ? result : result.split('').reverse().join('');
+	}
+	
+	decrypt (message, key, result = '', x = 0) {
+		if (!message || !key) throw new Error('Incorrect arguments!');
+		message = message.toUpperCase();
+		key = key.toUpperCase();
+
+		for (let i = 0; i < message.length; i++) {
+			if (message.charCodeAt(i) >= 65 && message.charCodeAt(i) <= 90) {
+				result += String.fromCharCode((message.charCodeAt(i) + 26 - key.charCodeAt(x % key.length)) % 26 + 65);
+				x++;
+			} else {
+				result += message[i];
+			}
+		}
+		return this.mode ? result : result.split('').reverse().join('');
+	}
 }

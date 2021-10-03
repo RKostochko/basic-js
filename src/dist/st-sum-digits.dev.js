@@ -21,6 +21,6 @@ var _index = require("../extensions/index.js");
  */
 function getSumOfDigits()
 /* n */
-{// 	throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+{
+  throw new _index.NotImplementedError('Not implemented'); // remove line with error and write your code here
 }
